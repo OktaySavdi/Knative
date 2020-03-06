@@ -35,12 +35,13 @@ The serverless cloud computing model can lead to increased developer productivit
 [istio install](https://istio.io/docs/setup/install/standalone-operator/)
 ```yaml
 kubectl apply -f https://istio.io/operator.yaml
-    
+kubectl create ns istio-system
+
 kubectl apply -f - <<EOF
-apiVersion: install.istio.io/v1alpha2
-kind: IstioControlPlane
+apiVersion: install.istio.io/v1alpha1
+kind: IstioOperator
 metadata:
-  namespace: istio-operator
+  namespace: istio-system
   name: example-istiocontrolplane
 spec:
   profile: demo
