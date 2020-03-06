@@ -182,12 +182,10 @@ kubectl --namespace knativetutorial  get triggers.eventing.knative.dev event-gre
 # Shows what happens with incoming requests and possible errors
 ```
 
-## We did 4 examples on Knative
+## We did 3 examples on Knative
 
  **1. knative event source example** 
  
  **2. knative auto scale example**
  
  **3. knative minumum scale**
- 
- **4. knative service-pinned**
