@@ -25,56 +25,6 @@ The serverless cloud computing model can lead to increased developer productivit
 
 -   An infrastructure for consuming and producing events to stimulate applications. Applications can be triggered by a variety of sources, such as events from your own applications, cloud services from multiple providers
 
-# Install Knative
-
-**Requirements**
-- istio
-- ingress controller
-
-**1- install istio**
-[istio install](https://istio.io/docs/setup/install/standalone-operator/)
-```yaml
-kubectl apply -f https://istio.io/operator.yaml
-kubectl create ns istio-system
-
-kubectl apply -f - <<EOF
-apiVersion: install.istio.io/v1alpha1
-kind: IstioOperator
-metadata:
-  namespace: istio-system
-  name: example-istiocontrolplane
-spec:
-  profile: demo
-EOF
-```
-**2- install ingress controller**
-```json
-yum install -y git
-git clone https://github.com/nginxinc/kubernetes-ingress.git
-cd kubernetes-ingress/deployments/
-kubectl apply -f common/ns-and-sa.yaml
-kubectl apply -f common/default-server-secret.yaml
-kubectl apply -f common/nginx-config.yaml
-kubectl apply -f rbac/rbac.yaml
-kubectl apply -f daemon-set/nginx-ingress.yaml
-```
-**3- install knative**
-```json
-kubectl apply --selector knative.dev/crd-install=true \
---filename https://github.com/knative/serving/releases/download/v0.12.0/serving.yaml \
---filename https://github.com/knative/eventing/releases/download/v0.12.0/eventing.yaml \
---filename https://github.com/knative/serving/releases/download/v0.12.0/monitoring.yaml
-    
-kubectl apply --filename https://github.com/knative/serving/releases/download/v0.12.0/serving.yaml \
---filename https://github.com/knative/eventing/releases/download/v0.12.0/eventing.yaml \
---filename https://github.com/knative/serving/releases/download/v0.12.0/monitoring.yaml
-```
-**control knative**
-```json
-kubectl get pods --namespace knative-serving
-kubectl get pods --namespace knative-eventing
-kubectl get pods --namespace knative-monitoring
-```
 
 ## Configuration Knative
 
