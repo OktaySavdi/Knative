@@ -50,7 +50,7 @@ spec:
           servicePort: 80
 ```
 After the definition of Ingress is made, it is time to edit the domain for knative. For this, config-domain configmap is entered and edited with the following command.
-```json
+```
 kubectl edit cm config-domain --namespace knative-serving
 ```
 ```yaml
@@ -82,7 +82,7 @@ kind: ConfigMap
   the namespace given
  - istio-injection = enabled label, the following    knative example is
    run with YAML kubectl apply -f.
-```json
+```
 kubectl label namespace <namespace> istio-injection=enabled
 ```
 ```yaml
@@ -104,14 +104,14 @@ In this example, "string" written in "value" section will appear as output.
     kubectl apply -n <namespace> --filename knative-example.yaml
 
 Örnek uygulanır ve çıktıya bakılır.
-```json
+```
 [root@master ~]# kubectl get ksvc helloworld-go
 NAME            URL                                                                LATESTCREATED         LATESTREADY           READY   REASON
 helloworld-go   http://helloworld-go.<namespace>.knative.<worker-ip>.nip.io        helloworld-go-zpm6r   helloworld-go-zpm6r   True
 ```
 
 Curl is thrown to the URL address and the process is completed.
-```json
+```
 [root@master ~]# curl http://helloworld-go.<namespace>.knative.<worker-ip>.nip.io
 Hello Go Sample v1!
 ```
@@ -120,11 +120,11 @@ Hello Go Sample v1!
 Some tips and tricks that you might find handy
 
 The service can be deployed using the following command:
-```json
+```
 kubectl get deployments -n knativetutorial
 ```
 Invoke Service
-```json
+```
 IP_ADDRESS="$(kubectl get svc istio-ingressgateway --namespace istio-system --output 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')"
 
 curl -H 'Host:greeter.knativetutorial.knative.<Worker_IP>.nip.io' <Worker_IP>:$IP_ADDRESS
@@ -132,52 +132,52 @@ curl -H 'Host:greeter.knativetutorial.knative.<Worker_IP>.nip.io' <Worker_IP>:$I
 curl -H 'Host:greeter.knativetutorial.knative.10.10.10.10.nip.io' 10.10.10.10:$IP_ADDRESS
 ```
 Service
-```json
+```
 kubectl --namespace knativetutorial  get services.serving.knative.dev greeter
 ```
 Configuration
-```json
+```
 kubectl --namespace knativetutorial get configurations.serving.knative.dev greeter
 ```
 Routes
-```json
+```
 kubectl --namespace knativetutorial get routes.serving.knative.dev greeter
 ```
 Revisions
-```json
+```
 kubectl --namespace knativetutorial get rev \
 --selector=serving.knative.dev/service=greeter \
 --sort-by="{.metadata.creationTimestamp}"
 ```
 Watching Logs
-```json
+```
 kubectl logs -n knativetutorial -f <pod-name> -c user-container
 ```
 Cronjobsources
-```json
+```
 kubectl -n knativetutorial get cronjobsources.sources.eventing.knative.dev
 ```
 Channel
-```json
+```
 kubectl -n knativetutorial get channels.eventing.knative.dev
 ```
 Subscription
-```json
+```
 kubectl --namespace knativetutorial get subscriptions.eventing.knative.dev event-greeter-subscriber
 ```
 Knative eventing provides a Broker named default when a special label is added to a namespace.
-```json
+```
 kubectl label namespace knativetutorial knative-eventing-injection=enabled
 ```
 Broker
-```json
+```
 kubectl -n knativetutorial get brokers.eventing.knative.dev
 ```
 Triggers
-```json
+```
 kubectl --namespace knativetutorial  get triggers.eventing.knative.dev event-greeter-trigger
 ```
-```json
+```
 # Get the logs of the first istio-ingressgateway pod
 # Shows what happens with incoming requests and possible errors
 ```
